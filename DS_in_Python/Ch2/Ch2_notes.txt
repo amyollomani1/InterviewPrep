@@ -1,0 +1,196 @@
+each object is instance of class
+Instance variables = data members
+
+abstract base class  (ABC)
+    cannot be instantiated, it defines 1+ common methods that all implementations must have
+    has 1+ concrete classes that inherit from abstract base class
+
+CRC cards (class -responsibiltiy collaborator)
+    index cards that subdivide the work of a program
+    each card represents a component
+
+Operator overloading
+    + is undefined for new class
+    + operator is overloaded by implementing __add__ methods
+    3 * 'love me' 
+        Python checks if int class provides sufficient defintion for multiplying a string via __mul__ method
+        If not, then python checks class definition of right-hand side in form of method named __rmul__ (right multiply)
+        
+        difference between __mul__ and __rmul__ allows class to define different cases, useful for matric multiplication (A * B doesn;t equal B * A)
+
+Non_operator overloads:
+    str(foo) is a call to constructor for the string class
+    If parameter is an instance of a user defined class, so string constructor xalls a special named method foo.__str__() which returns corret string representation
+
+    Used for conversion to a boolean
+        if(foo) can be used even if foo isn't a boolean val
+        foo.__bool__()
+
+Class Defintions: Overloaded operations: (pg 75)
+
+    Common Syntax
+Special Method Form
+a+b
+a.     add     (b); alternatively b.     radd     (a)
+a−b
+a. sub (b); alternatively b. rsub (a)
+ab
+a. mul (b); alternatively b. rmul (a)
+a/b
+a.     truediv     (b); alternatively b.     rtruediv     (a)
+a // b
+a. floordiv (b); alternatively b. rfloordiv (a)
+a%b
+a. mod (b); alternatively b. rmod (a)
+ab
+a.     pow     (b); alternatively b.     rpow     (a)
+a << b
+a.     lshift     (b); alternatively b.     rlshift     (a)
+a >> b
+a. rshift (b); alternatively b. rrshift (a)
+a&b
+a. and (b); alternatively b. rand (a)
+aˆb
+a. xor (b); alternatively b. rxor (a)
+a|b
+a.     or     (b); alternatively b.     ror     (a)
+a += b a −= b a=b ...
+a. iadd (b) a. isub (b) a. imul (b) ...
++a
+a. pos ()
+−a
+a. neg ()
+ ̃a
+a. invert ( )
+abs(a)
+a. abs ()
+a<b
+a. lt (b)
+a <= b
+a. le (b)
+a>b
+a. gt (b)
+a >= b
+a. ge (b)
+a == b
+a. eq (b)
+a != b
+a. ne (b)
+v in a
+a. contains (v)
+a[k]
+a. getitem (k)
+a[k] = v
+a. setitem (k,v)
+del a[k]
+a. delitem (k)
+a(arg1, arg2, ...)
+a. call (arg1, arg2, ...)
+len(a)
+a. len ()
+hash(a)
+a. hash ( )
+iter(a)
+a. iter ( )
+next(a)
+a. next ( )
+bool(a)
+a. bool ( )
+float(a)
+a. float ( )
+int(a)
+a. int ()
+repr(a)
+a. repr ( )
+reversed(a)
+a.     reversed     ( )
+str(a)
+a. str ()
+
+
+Implied methods
+    ex: evaluating a + b for user-defined class without __add__ or __radd__ will raise an error
+    if(foo) (by default every object other than None is True)
+    bool(foo) is True when len(foo) is > 0
+
+    If a container class provides implementations of __len__ and __getitem__, a default iteration is automatically provided
+            and then default __contains__ is provided
+
+    __eq__ method is equivalence. Note, if no implementation of __eq__, then a ==b is legal iff a is b
+
+    note existance of __eq__ supports a ==b, but does not provide method for a !=B
+        __ne__ method should be provided : (not (a==b) is the result)
+
+    __It__ method suports a < b and inderictly b > A
+        but both __It__ and __eq__ does not imply semantics for a <=b
+
+iterator
+    collection that supports special method named __next__ which returns next element of collection
+    it raises StopIteration exception to indicate theres no more elements
+
+    use generator syntax to automatically produce an iterator of yielded values
+
+range
+    in python 3 uses strategy lazy evaluation
+
+    range is a class that can represent desired range of elements without storing them in memory
+
+    r = range(8, 140, 5)
+    len(r) will be 27 since __len__ is suported
+    r[0] equals the first element since __getitem__ is suported
+
+    since len and getitem is supported, then it inheritis automatic support for iteration, which is why its posible to execute a for loop over a range
+
+Inheritance:
+
+    hierarhcial fashtion. Subsets create levels (two-story house is subset of house is subset of building)
+        levels create "is a" relatoinship
+
+    parent class or super class is existing class. subclass or child class extends its superclass by providing new methods
+
+    subclass specialize existing behavior by creating new implementaiton that overrrides an existing method
+
+    Exception Hierarchy
+        BaseException is Root. More specific exceptions are its children
+
+    Java and C++ have protected or private access modes 
+        protected: when members declared in superclass are accesable to subclasses but not general public
+        private: members not accesible to either.
+
+        names beginging with undescor are akin protected. 
+        Names with double underscore (other than special methods) are akin to private
+
+        Note python doesn't formally have acess control 
+
+Numeric progression: sequence of numbers where each number depends on 1 or more previouse numbers
+    arithmetic progression: determines next number by adding fixed constant to previous value
+    geometric progression: determines next number by multiply preivous val by fixed constant
+    Fibonacci progression
+
+abstract base classes: only purpose is to sever as base class through Inheritance
+                        it can't be directly instantiated
+    concrete class: can be instantiated
+
+    in Java and C++: abstract base class is a formal type that guarantees 1+ abstarct methods and suppors polymorphism
+
+    Since Python has no declared types, polymorhpism can be accomplished without unifying abstarct base class
+
+    template method pattern: when abstract base class provides concrete behaviors that rely upon calls to other abstract behaviors
+        Python collections module provides sever abc's that assist with custom data structures
+
+    collections.Sequence abc dfines bhevairos similar to lists classes
+
+Namespaces and Object orientation
+    namspeace is abstraction that manages all identifiers in scope - maps each name to associated value
+        namsepace may be a function, class, or module
+    
+    instance namsepace: manages attribtutes specific to an inidivudal object
+                    example: CreditCard mainains distinct balance, account number, credit limit. each credit card will have namespace to manage such values
+                        PredotaryCreditCard has similar instance namespsce, with addtional apr
+    class namespace: seperate namespace for each class thats defined
+                manages members shared by all instances of class
+                example: make_payment method isn't stored independely by each instance of that class
+    
+                note: predatoryCreditCard class has its own namsepace containing three methods
+
+
